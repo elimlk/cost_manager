@@ -47,6 +47,5 @@ public class User {
         return true;
     }
 
-    public
 }
 
