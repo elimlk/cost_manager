@@ -3,6 +3,7 @@ package Model;
 import java.util.Date;
 
 public class CostItem {
+
     private double sum;
     private String details;
     private String category;
