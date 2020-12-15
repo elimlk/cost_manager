@@ -4,7 +4,7 @@ import org.apache.derby.client.am.SqlException;
 import java.sql.*;
 
 public class DerbyDBModel implements IModel {
-    public static String driver = "org.apache.derby.jdbc.ClientDriver";
+    public static String driver = "org.apache.derby.jdbc.EmbeddedDriver";
     public static String protocol = "jdbc:derby://localhost:1527/costM1;create=true";
 
     public static void main(String[] args) {

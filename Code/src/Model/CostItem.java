@@ -2,7 +2,7 @@ package Model;
 
 import java.util.Date;
 
-public class Cost {
+public class CostItem {
     private double sum;
     private String details;
     private String category;
@@ -10,7 +10,7 @@ public class Cost {
     private Date date;
 
     //TODO Validation Tests
-    public Cost(double sum, String details, String category, String currency, Date date) {
+    public CostItem(double sum, String details, String category, String currency, Date date) {
         setSum(sum);
         setDetails(details);
         setCategory(category);

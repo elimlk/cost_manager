@@ -1,3 +1,4 @@
+/*
 package Model;
 
 import java.util.ArrayList;
@@ -8,19 +9,19 @@ public class User {
 
     private String username;
     private String password;
-    private List<String> uniqueCategories;
-    private List<Cost> costs;
+    private Category categories;
+    private List<CostItem> costItems;
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
-        this.uniqueCategories = new ArrayList<String>();
-        this.costs = new ArrayList<Cost>();
+        this.categories = new Category();
+        this.costItems = new ArrayList<CostItem>();
     }
 
     public boolean addCost(double sum, String details, String category, String currency, Date date){
         try {
-            costs.add(new Cost(sum,details,category,currency,date));
+            costItems.add(new CostItem(sum,details,category,currency,date));
         } catch (Exception e) {
             //TODO ask life about that
             e.printStackTrace();
@@ -34,11 +35,11 @@ public class User {
         if (newCategory.isBlank()){
             return false;
         }
-        if(uniqueCategories.contains(newCategory)){
+        if(categories.contains(newCategory)){
             return false;
         }else{
             try {
-                this.uniqueCategories.add(newCategory);
+                this.categories.add(newCategory);
             } catch (Exception e) {
                 e.printStackTrace();
                 return false;
@@ -50,3 +51,4 @@ public class User {
     
 }
 
+*/
