@@ -61,6 +61,8 @@ public class DerbyDBModel implements IModel {
                 sql = "INSERT INTO "+tableName+" VALUES (12345, 'test cost row','test','ILS',1,1,1990,0)";
                 statement.execute(sql);
                 System.out.println("Inserted test row.");
+
+
             }
             String sql = "SELECT * FROM costs";
             ResultSet result = statement.executeQuery(sql);
