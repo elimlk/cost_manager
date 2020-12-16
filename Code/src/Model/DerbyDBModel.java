@@ -1,9 +1,8 @@
 package Model;
-import org.apache.derby.client.am.SqlException;
 import java.sql.*;
 import java.util.Date;
 
-public class DerbyDBModel implements IModel {
+public class DerbyDBModel implements IModel{
   //  public static String driver = "org.apache.derby.jdbc.EmbeddedDriver";
   //  public static String protocol = "jdbc:derby://localhost:1527/costM1;create=true";
 /*
@@ -55,7 +54,7 @@ public class DerbyDBModel implements IModel {
     public DerbyDBModel () throws SQLException {
 
         String databaseURL = "jdbc:derby:costsManagerDB1;create=true";
-        String tableName = "costs1";
+        String tableName = "costs2";
         conn = DriverManager.getConnection(databaseURL);
         statement = conn.createStatement();
 
@@ -166,4 +165,6 @@ public class DerbyDBModel implements IModel {
     @Override
     public void addCategory(String newCategory) {
     }
+    @Override
+
 }
