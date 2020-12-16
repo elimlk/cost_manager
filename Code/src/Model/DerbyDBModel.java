@@ -42,10 +42,58 @@ public class DerbyDBModel implements IModel {
         }
     }*/
 
-    String databaseURL = "jdbc:derby:costsManagerDB1;create=true";
-    String tableName = "costs";
+    String databaseURL;
+    String tableName;
+    Connection conn;
+    Statement statement;
 
-    public void initDB() {
+    public static void main(String[] args) throws CostManagerException, SQLException {
+        DerbyDBModel db = new DerbyDBModel();
+        db.addCostItem(new CostItem(20,"food","test", Currency.ILS.toString(),new Date()));
+
+    }
+    public DerbyDBModel () throws SQLException {
+
+        String databaseURL = "jdbc:derby:costsManagerDB1;create=true";
+        String tableName = "costs1";
+        conn = DriverManager.getConnection(databaseURL);
+        statement = conn.createStatement();
+
+        if (!doesTableExists(tableName, conn)) {
+            String sql = "CREATE TABLE " + tableName + " (cost_id int primary key, cost_details varchar(128)," +
+                    " cat varchar(128), currency varchar(128), day int, month int, my_year int, my_sum double)";
+            statement.execute(sql);
+        }
+
+
+        printTable(); //FOR TESTING PURPOSES
+
+
+    }
+
+    public void closeConnection () {
+        try {
+            DriverManager.getConnection("jdbc:derby:costsManagerDB1;shutdown=true");
+        } catch (SQLException e) {
+            if (e.getSQLState().equals("08006")) {
+                System.out.println("Derby shutdown normally");
+            }
+            else{
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    private void printTable() throws SQLException {
+        String sql = "SELECT * FROM "+tableName;
+        ResultSet result = statement.executeQuery(sql);
+        while (result.next()) {
+            System.out.println(result.getString("cost_id"));
+        }
+    }
+
+    /*public void initDB() {
 
         try (Connection conn = DriverManager.getConnection(databaseURL)) {
             Statement statement = conn.createStatement();
@@ -60,7 +108,7 @@ public class DerbyDBModel implements IModel {
 
 
             }
-            String sql = "SELECT * FROM costs";
+            String sql = "SELECT * FROM "+tableName;
             ResultSet result = statement.executeQuery(sql);
             while (result.next()) {
                 System.out.println(result.getString("cost_id"));
@@ -68,12 +116,13 @@ public class DerbyDBModel implements IModel {
             DriverManager.getConnection("jdbc:derby:costsManagerDB1;shutdown=true");
         } catch (SQLException ex) {
             if (ex.getSQLState().equals("08006")) {
-                System.out.println("Derby shutdown normally");
+                //System.out.println("Derby shutdown normally");
             } else {
                 ex.printStackTrace();
             }
         }
     }
+    */
     private static boolean doesTableExists(String tableName, Connection conn)
             throws SQLException {
         DatabaseMetaData meta = conn.getMetaData();
@@ -85,7 +134,7 @@ public class DerbyDBModel implements IModel {
     private int lastIdRecord(){
         try (Connection conn = DriverManager.getConnection(databaseURL)) {
             Statement statement = conn.createStatement();
-            String sql = "SELECT cost_id FROM costs ORDER BY cost_id DESC LIMIT 1 ";
+            String sql = "SELECT cost_id FROM "+tableName+" ORDER BY cost_id DESC LIMIT 1 ";
             ResultSet result = statement.executeQuery(sql);
             return Integer.parseInt(result.getString("cost_id"));
         } catch (SQLException e) {
@@ -94,16 +143,20 @@ public class DerbyDBModel implements IModel {
         return -1;
     }
     @Override
-    public void addCostItem (CostItem item) throws CostManagerException {
+    public void addCostItem (CostItem item) throws CostManagerException, SQLException {
         try (Connection conn = DriverManager.getConnection(databaseURL)) {
             Statement statement = conn.createStatement();
-            String sql = "INSERT INTO " + tableName + " VALUES ("+item.getDetails()+"00000, 'test cost row','test','ILS',1,1,1990,0)";
+            String sql = "INSERT INTO " + tableName + " VALUES (00001, 'test cost row','test','ILS',1,1,1990,0)";
             statement.execute(sql);
+            sql = "SELECT * FROM " + tableName;
+            ResultSet result = statement.executeQuery(sql);
+            while (result.next()) {
+                System.out.println(result.getString("cost_id"));
+            }
             DriverManager.getConnection("jdbc:derby:costsManagerDB1;shutdown=true");
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
+
     @Override
     public void deleteCostItem (CostItem item) throws CostManagerException {
     }
