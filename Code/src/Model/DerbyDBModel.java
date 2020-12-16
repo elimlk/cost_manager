@@ -1,6 +1,5 @@
 package Model;
 import org.apache.derby.client.am.SqlException;
-
 import java.sql.*;
 import java.util.Date;
 
@@ -45,17 +44,14 @@ public class DerbyDBModel implements IModel {
 
     String databaseURL = "jdbc:derby:costsManagerDB1;create=true";
     String tableName = "costs";
-    public static void main(String[] args) {
-        DerbyDBModel db = new DerbyDBModel();
-        db.initDB();
-    }
+
     public void initDB() {
 
         try (Connection conn = DriverManager.getConnection(databaseURL)) {
             Statement statement = conn.createStatement();
             if (!doesTableExists(tableName, conn)) {
-                String sql = "CREATE TABLE "+ tableName+" (cost_id int primary key, cost_details varchar(128), cat varchar(128)" +
-                        ", currency varchar(128), day int, month int, year int, sum double)";
+                String sql = "CREATE TABLE "+ tableName+" (cost_id int primary key, cost_details varchar(128)," +
+                        " cat varchar(128), currency varchar(128), day int, month int, my_year int, my_sum double)";
                 statement.execute(sql);
                 System.out.println("Created table"+tableName);
                 sql = "INSERT INTO "+tableName+" VALUES (12345, 'test cost row','test','ILS',1,1,1990,0)";
@@ -71,7 +67,7 @@ public class DerbyDBModel implements IModel {
             }
             DriverManager.getConnection("jdbc:derby:costsManagerDB1;shutdown=true");
         } catch (SQLException ex) {
-            if (ex.getSQLState().equals("XJ015")) {
+            if (ex.getSQLState().equals("08006")) {
                 System.out.println("Derby shutdown normally");
             } else {
                 ex.printStackTrace();
