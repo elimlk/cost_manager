@@ -47,6 +47,7 @@ public class DerbyDBModel implements IModel {
 
     public void initDB() {
 
+
         try (Connection conn = DriverManager.getConnection(databaseURL)) {
             Statement statement = conn.createStatement();
             if (!doesTableExists(tableName, conn)) {
