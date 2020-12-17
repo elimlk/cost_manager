@@ -5,6 +5,7 @@ public class Driver {
         DerbyDBModel db = new DerbyDBModel();
         db.initDB();
         System.out.println(db.lastIdRecord());
+
     }
 }
 
