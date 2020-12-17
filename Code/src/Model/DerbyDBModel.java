@@ -43,7 +43,7 @@ public class DerbyDBModel implements IModel {
     }*/
 
     String databaseURL = "jdbc:derby:costsManagerDB1;create=true";
-    String tableName = "costA";
+    String tableName = "costD";
 
     public void initDB() {
 
@@ -51,10 +51,11 @@ public class DerbyDBModel implements IModel {
             Statement statement = conn.createStatement();
             if (!doesTableExists(tableName, conn)) {
                 String sql = "CREATE TABLE "+ tableName+" (cost_id int primary key, cost_details varchar(128)," +
-                        " cat varchar(128), currency varchar(128), day int, month int, my_year int, my_sum double)";
+                        " cat varchar(128), currency varchar(128), day int, month int, my_year int, my_sum double,date DATE)";
+
                 statement.execute(sql);
                 System.out.println("Created table"+tableName);
-                sql = "INSERT INTO "+tableName+" VALUES (12345, 'test cost row','test','ILS',1,1,1990,0)";
+                sql = "INSERT INTO "+tableName+" VALUES (12345, 'test cost row','test','ILS',1,1,1990,0,'1990-12-30')";
                 statement.execute(sql);
                 System.out.println("Inserted test row.");
 
@@ -117,6 +118,7 @@ public class DerbyDBModel implements IModel {
                 System.out.print(Integer.parseInt(result.getString("month"))+",");
                 System.out.print(Integer.parseInt(result.getString("my_year"))+",");
                 System.out.print(Double.parseDouble(result.getString("my_sum"))+",");
+                System.out.print(result.getDate("date"));
                 System.out.println("");
             }
             DriverManager.getConnection("jdbc:derby:costsManagerDB1;shutdown=true");
@@ -150,9 +152,40 @@ public class DerbyDBModel implements IModel {
     }
     @Override
     public void deleteCostItem (CostItem item) throws CostManagerException {
+
     }
     @Override
-    public void showReport(Date start, Date end) throws CostManagerException {
+    public Report showReport(int s_day,int s_month,int s_year,int e_day,int e_month,int e_year) throws CostManagerException {
+        Report report = new Report();
+        CostItem costItem ;
+        try (Connection conn = DriverManager.getConnection(databaseURL)) {
+            Statement statement = conn.createStatement();
+            //String sql = "SELECT cost_id FROM "+tableName+" ORDER BY cost_id DESC LIMIT 1 ";
+            String sql = "SELECT * FROM "+tableName;
+            ResultSet result = statement.executeQuery(sql);
+
+            while (result.next()) {
+                costItem = new CostItem(
+                        result.getDouble("my_sum"),
+                        result.getString("cost_details"),
+                        result.getString("cat"),
+                        result.getString("currency"),
+                        result.getInt("day"),
+                        result.getInt("month"),
+                        result.getInt("my_year"));
+                        report.addItem(costItem);
+            }
+            DriverManager.getConnection("jdbc:derby:costsManagerDB1;shutdown=true");
+        } catch (SQLException e) {
+            if (e.getSQLState().equals("08006")) {
+                System.out.println("Derby shutdown normally");
+            } else {
+                e.printStackTrace();
+            }
+        }finally {
+            return report;
+        }
+
     }
     @Override
     public void addCategory(String newCategory) {
