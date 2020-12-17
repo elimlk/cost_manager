@@ -15,5 +15,13 @@ public class Report {
         listOfItems.add(costItem);
     }
 
+    public double calcSummery() {
+        return 0;
+    }
+
+    public void calcPrecentCategory(){
+
+    }
+
 
 }
