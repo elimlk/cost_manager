@@ -13,14 +13,19 @@ public class CostItem {
     private  int year;
 
     //TODO Validation Tests
-    public CostItem(double sum, String details, String category, String currency, int day,int month,int year) {
+    public CostItem(double sum, String details, String category, String currency, String date) {
         setSum(sum);
         setDetails(details);
         setCategory(category);
         setCurrency(currency);
-        setDay(day);
-        setMonth(month);
-        setYear(year);
+        parseDate(date);
+
+    }
+
+    private void parseDate(String date) {
+        setDay(Integer.parseInt(date.substring(8)));
+        setMonth(Integer.parseInt(date.substring(5,7)));
+        setYear(Integer.parseInt(date.substring(0,4)));
     }
 
     public void setSum(double sum) {
@@ -50,7 +55,7 @@ public class CostItem {
     public String getCurrency() {
         return currency;
     }
-    public int getDay() {return day;}
-    public int getMonth() {return month;}
-    public int getYear() {return year;}
+    public String getDate(){
+        return (year+"-"+month+"-"+day).toString();
+    }
 }

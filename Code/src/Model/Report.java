@@ -7,9 +7,11 @@ public class Report {
 
     private List<CostItem> listOfItems;
 
+    public Report() {
+        this.listOfItems = new ArrayList<CostItem>();
+    }
 
     public void addItem(CostItem costItem){
-        listOfItems = new ArrayList<CostItem>();
         listOfItems.add(costItem);
     }
 
