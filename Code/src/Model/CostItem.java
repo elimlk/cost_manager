@@ -8,15 +8,19 @@ public class CostItem {
     private String details;
     private String category;
     private String currency;
-    private Date date;
+    private int day;
+    private int month;
+    private  int year;
 
     //TODO Validation Tests
-    public CostItem(double sum, String details, String category, String currency, Date date) {
+    public CostItem(double sum, String details, String category, String currency, int day,int month,int year) {
         setSum(sum);
         setDetails(details);
         setCategory(category);
         setCurrency(currency);
-        setDate(date);
+        setDay(day);
+        setMonth(month);
+        setYear(year);
     }
 
     public void setSum(double sum) {
@@ -31,9 +35,9 @@ public class CostItem {
     public void setCurrency(String currency) {
         this.currency = currency;
     }
-    public void setDate(Date date) {
-        this.date = date;
-    }
+    public void setDay(int day) { this.day = day; }
+    public void setMonth(int month) { this.month = month; }
+    public void setYear(int year) { this.year = year; }
     public double getSum() {
         return sum;
     }
@@ -46,9 +50,7 @@ public class CostItem {
     public String getCurrency() {
         return currency;
     }
-    public Date getDate() {
-        return date;
-    }
-
-
+    public int getDay() {return day;}
+    public int getMonth() {return month;}
+    public int getYear() {return year;}
 }

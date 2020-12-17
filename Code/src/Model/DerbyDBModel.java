@@ -60,11 +60,11 @@ public class DerbyDBModel implements IModel {
 
 
             }
-            String sql = "SELECT * FROM "+tableName;
+/*            String sql = "SELECT * FROM "+tableName;
             ResultSet result = statement.executeQuery(sql);
             while (result.next()) {
                 System.out.println(result.getString("cost_id"));
-            }
+            }*/
             DriverManager.getConnection("jdbc:derby:costsManagerDB1;shutdown=true");
         } catch (SQLException ex) {
             if (ex.getSQLState().equals("08006")) {
@@ -85,23 +85,67 @@ public class DerbyDBModel implements IModel {
     public int lastIdRecord(){
         try (Connection conn = DriverManager.getConnection(databaseURL)) {
             Statement statement = conn.createStatement();
-            String sql = "SELECT cost_id FROM "+tableName+" ORDER BY cost_id DESC LIMIT 1 ";
+            String sql = "SELECT MAX(cost_id) as cost_id FROM "+tableName;
+//            String sql = "SELECT * FROM "+tableName;
             ResultSet result = statement.executeQuery(sql);
-            return Integer.parseInt(result.getString("cost_id"));
-        } catch (SQLException e) {
-            e.printStackTrace();
+            while (result.next()) {
+                return Integer.parseInt(result.getString("cost_id"));
+            }
+            DriverManager.getConnection("jdbc:derby:costsManagerDB1;shutdown=true");
+        } catch (SQLException ex) {
+            if (ex.getSQLState().equals("08006")) {
+                System.out.println("Derby shutdown normally");
+            } else {
+                ex.printStackTrace();
+            }
         }
         return -1;
     }
+
+    public void printTable(){
+        try (Connection conn = DriverManager.getConnection(databaseURL)) {
+            Statement statement = conn.createStatement();
+            //String sql = "SELECT cost_id FROM "+tableName+" ORDER BY cost_id DESC LIMIT 1 ";
+            String sql = "SELECT * FROM "+tableName;
+            ResultSet result = statement.executeQuery(sql);
+            while (result.next()) {
+                System.out.print(Integer.parseInt(result.getString("cost_id"))+",");
+                System.out.print(result.getString("cost_details")+",");
+                System.out.print(result.getString("cat")+",");
+                System.out.print(result.getString("currency")+",");
+                System.out.print(Integer.parseInt(result.getString("day"))+",");
+                System.out.print(Integer.parseInt(result.getString("month"))+",");
+                System.out.print(Integer.parseInt(result.getString("my_year"))+",");
+                System.out.print(Double.parseDouble(result.getString("my_sum"))+",");
+                System.out.println("");
+            }
+            DriverManager.getConnection("jdbc:derby:costsManagerDB1;shutdown=true");
+        } catch (SQLException e) {
+            if (e.getSQLState().equals("08006")) {
+                System.out.println("Derby shutdown normally");
+            } else {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
     @Override
     public void addCostItem (CostItem item) throws CostManagerException {
         try (Connection conn = DriverManager.getConnection(databaseURL)) {
             Statement statement = conn.createStatement();
-            String sql = "INSERT INTO " + tableName + " VALUES ("+item.getDetails()+"00000, 'test cost row','test','ILS',1,1,1990,0)";
+            int Record_id = lastIdRecord()+1;
+            String sql = "INSERT INTO "+tableName+" VALUES ("+Record_id+", '"+item.getDetails()+"','"+item.getCategory()+"','"+
+                                item.getCurrency()+"',"+item.getDay()+","+item.getMonth()+","+item.getYear()+","+item.getSum()+")";
+            //String sql = "INSERT INTO " + tableName + " VALUES ("+item.getDetails()+"00000, 'test cost row','test','ILS',1,1,1990,0)";
             statement.execute(sql);
             DriverManager.getConnection("jdbc:derby:costsManagerDB1;shutdown=true");
         } catch (SQLException e) {
-            e.printStackTrace();
+            if (e.getSQLState().equals("08006")) {
+                System.out.println("Derby shutdown normally");
+            } else {
+                e.printStackTrace();
+            }
         }
     }
     @Override
