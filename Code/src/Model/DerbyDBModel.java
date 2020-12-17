@@ -43,7 +43,7 @@ public class DerbyDBModel implements IModel {
     }*/
 
     String databaseURL = "jdbc:derby:costsManagerDB1;create=true";
-    String tableName = "costs";
+    String tableName = "costA";
 
     public void initDB() {
 
@@ -60,7 +60,7 @@ public class DerbyDBModel implements IModel {
 
 
             }
-            String sql = "SELECT * FROM costs";
+            String sql = "SELECT * FROM "+tableName;
             ResultSet result = statement.executeQuery(sql);
             while (result.next()) {
                 System.out.println(result.getString("cost_id"));
@@ -82,10 +82,10 @@ public class DerbyDBModel implements IModel {
         return result.next();
     }
 
-    private int lastIdRecord(){
+    public int lastIdRecord(){
         try (Connection conn = DriverManager.getConnection(databaseURL)) {
             Statement statement = conn.createStatement();
-            String sql = "SELECT cost_id FROM costs ORDER BY cost_id DESC LIMIT 1 ";
+            String sql = "SELECT cost_id FROM "+tableName+" ORDER BY cost_id DESC LIMIT 1 ";
             ResultSet result = statement.executeQuery(sql);
             return Integer.parseInt(result.getString("cost_id"));
         } catch (SQLException e) {
