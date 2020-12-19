@@ -7,5 +7,4 @@ public interface IModel {
     public void addCostItem(CostItem item) throws CostManagerException, SQLException;
     public void deleteCostItem(CostItem item) throws CostManagerException;
     public Report showReport(String sDate,String eDate) throws CostManagerException ;
-    public void addCategory(String newCategory);
 }

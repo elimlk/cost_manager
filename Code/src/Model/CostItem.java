@@ -23,9 +23,9 @@ public class CostItem {
     }
 
     private void parseDate(String date) {
-        setDay(Integer.parseInt(date.substring(8)));
-        setMonth(Integer.parseInt(date.substring(5,7)));
         setYear(Integer.parseInt(date.substring(0,4)));
+        setMonth(Integer.parseInt(date.substring(5,7)));
+        setDay(Integer.parseInt(date.substring(8)));
     }
 
     public void setSum(double sum) {
@@ -40,7 +40,16 @@ public class CostItem {
     public void setCurrency(String currency) {
         this.currency = currency;
     }
-    public void setDay(int day) { this.day = day; }
+    public void setDay(int day) {
+        //TODO check february month;
+        if (this.month % 2==0 )
+            if(day <= 31 && day >= 1)
+                this.day = day;
+        else{
+            if(day <= 30 && day >= 1)
+                this.day = day;
+            }
+    }
     public void setMonth(int month) { this.month = month; }
     public void setYear(int year) { this.year = year; }
     public double getSum() {

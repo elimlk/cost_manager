@@ -10,7 +10,8 @@ public class Category {
         categories = new ArrayList<String>();
     }
 
-
-
+    public void addCategory(String newCategory){
+        categories.add(newCategory);
+    }
 
 }

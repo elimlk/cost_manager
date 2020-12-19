@@ -16,7 +16,11 @@ public class Report {
     }
 
     public double calcSummery() {
-        return 0;
+        double sum = 0;
+        for(int i=0 ;i < listOfItems.size();i++){
+            sum += listOfItems.get(i).getSum();
+        }
+        return sum;
     }
 
     public void calcPrecentCategory(){

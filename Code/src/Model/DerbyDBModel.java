@@ -128,7 +128,6 @@ public class DerbyDBModel implements IModel {
         }
     }
 
-
     @Override
     public void addCostItem (CostItem item) throws CostManagerException {
         try (Connection conn = DriverManager.getConnection(databaseURL)) {
@@ -182,7 +181,5 @@ public class DerbyDBModel implements IModel {
         }
 
     }
-    @Override
-    public void addCategory(String newCategory) {
-    }
+
 }
