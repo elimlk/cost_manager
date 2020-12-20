@@ -15,7 +15,7 @@ public class Report {
         listOfItems.add(costItem);
     }
 
-    public double calcSummery() {
+    public double calcSummary() {
         double sum = 0;
         for(int i=0 ;i < listOfItems.size();i++){
             sum += listOfItems.get(i).getSum();
@@ -23,9 +23,6 @@ public class Report {
         return sum;
     }
 
-    public void calcPercentCategory(){
-
-    }
-
+    public void calcPercentCategory(){ } //Depends on view\model view
 
 }

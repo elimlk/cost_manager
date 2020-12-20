@@ -8,11 +8,12 @@ public class Driver {
         // ID | DETAILS | CATEGORY | CURRENCY | DATE | SUM
         DerbyDBModel db = new DerbyDBModel();
         db.initDB();
-/*        try {
-            db.addCostItem(new CostItem(20,"test_throw","test", Currency.ILS.toString(),"2000-02-29"));
+       try {
+            db.addCostItem(new CostItem(20,"test_throw","CaRs", Currency.ILS.toString(),"2000-02-26"));
+            db.addCategory("baby");
         } catch (CostManagerException e) {
             System.out.println(e.getMessage());
-        } // add items for tests.*/
+        } // add items for tests.
         db.printTable();
         try {
             db.showReport("1991-01-01","1991-02-23");

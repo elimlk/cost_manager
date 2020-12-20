@@ -1,17 +1,15 @@
-/*
-package test;
 
+package test;
 import Model.CostItem;
+import Model.CostManagerException;
 import Model.Currency;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class CostItemTest {
     @BeforeEach
-    void setUp() {
+    void setUp() throws CostManagerException {
         CostItem costItem1 = new CostItem(0,"test unit (set day)","test", Currency.ILS.toString(),"2011-02-31");
 
     }
@@ -23,4 +21,4 @@ class CostItemTest {
     @Test
     void setDay() {
     }
-}*/
+}

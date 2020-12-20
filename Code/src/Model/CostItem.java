@@ -2,6 +2,7 @@ package Model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 public class CostItem {
 
@@ -9,10 +10,7 @@ public class CostItem {
     private String details;
     private String category;
     private String currency;
-    //TODO changes ints to one string
-    private int day;
-    private int month;
-    private int year;
+    private String date;
 
     //TODO Validation Tests
     public CostItem(double sum, String details, String category, String currency, String date) throws CostManagerException {
@@ -41,9 +39,7 @@ public class CostItem {
     }
 
     private void setItemDate(String date) {
-        setYear(Integer.parseInt(date.substring(0,4)));
-        setMonth(Integer.parseInt(date.substring(5,7)));
-        setDay(Integer.parseInt(date.substring(8)));
+        this.date = date;
     }
 
     public void setSum(double sum) throws CostManagerException {
@@ -56,16 +52,19 @@ public class CostItem {
         this.details = details;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategory(String category) throws CostManagerException {
+        DerbyDBModel dbModel = new DerbyDBModel();
+        List categories = dbModel.getCategories();
+        String output = category.substring(0, 1).toUpperCase() + category.substring(1).toLowerCase();
+        if (categories.contains(output))
+            this.category = output;
+        else
+            throw (new CostManagerException("Category does not exist"));
     }
     public void setCurrency(String currency) {
         this.currency = currency;
     }
 
-    public void setDay(int day) { this.day = day; }
-    public void setMonth(int month) { this.month = month; }
-    public void setYear(int year) { this.year = year; }
     public double getSum() {
         return sum;
     }
@@ -79,6 +78,6 @@ public class CostItem {
         return currency;
     }
     public String getDate(){
-        return (year+"-"+month+"-"+day).toString();
+        return date;
     }
 }
