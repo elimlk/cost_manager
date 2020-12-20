@@ -9,6 +9,7 @@ public class CostItem {
     private String details;
     private String category;
     private String currency;
+    //TODO changes ints to one string
     private int day;
     private int month;
     private int year;
