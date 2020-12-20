@@ -11,7 +11,7 @@ public class CostItem {
     private String currency;
     private int day;
     private int month;
-    private  int year;
+    private int year;
 
     //TODO Validation Tests
     public CostItem(double sum, String details, String category, String currency, String date) throws CostManagerException {
@@ -45,12 +45,16 @@ public class CostItem {
         setDay(Integer.parseInt(date.substring(8)));
     }
 
-    public void setSum(double sum) {
-        this.sum = sum;
+    public void setSum(double sum) throws CostManagerException {
+        if (sum > 0)
+            this.sum = sum;
+        else
+            throw (new CostManagerException("Sum must be positive"));
     }
     public void setDetails(String details) {
         this.details = details;
     }
+
     public void setCategory(String category) {
         this.category = category;
     }

@@ -9,9 +9,9 @@ public class Driver {
         DerbyDBModel db = new DerbyDBModel();
         db.initDB();
 /*        try {
-            db.addCostItem(new CostItem(200.3,"test3","test", Currency.ILS.toString(),15,1,1991));
+            db.addCostItem(new CostItem(20,"test_throw","test", Currency.ILS.toString(),"2000-02-29"));
         } catch (CostManagerException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         } // add items for tests.*/
         db.printTable();
         try {
