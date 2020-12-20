@@ -23,7 +23,7 @@ public class Report {
         return sum;
     }
 
-    public void calcPrecentCategory(){
+    public void calcPercentCategory(){
 
     }
 

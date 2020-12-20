@@ -1,6 +1,7 @@
 package Model;
 
-import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class CostItem {
 
@@ -13,16 +14,32 @@ public class CostItem {
     private  int year;
 
     //TODO Validation Tests
-    public CostItem(double sum, String details, String category, String currency, String date) {
+    public CostItem(double sum, String details, String category, String currency, String date) throws CostManagerException {
         setSum(sum);
         setDetails(details);
         setCategory(category);
         setCurrency(currency);
-        parseDate(date);
+        if (isDateValid(date))
+          setItemDate(date);
+        else
+            throw (new CostManagerException("Invalid Date"));
 
     }
 
-    private void parseDate(String date) {
+    public static boolean isDateValid(String text) {
+        if (text == null || !text.matches("^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])$"))
+            return false;
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        df.setLenient(false);
+        try {
+            df.parse(text);
+            return true;
+        } catch (ParseException ex) {
+            return false;
+        }
+    }
+
+    private void setItemDate(String date) {
         setYear(Integer.parseInt(date.substring(0,4)));
         setMonth(Integer.parseInt(date.substring(5,7)));
         setDay(Integer.parseInt(date.substring(8)));
@@ -40,16 +57,8 @@ public class CostItem {
     public void setCurrency(String currency) {
         this.currency = currency;
     }
-    public void setDay(int day) {
-        //TODO check february month;
-        if (this.month % 2==0 )
-            if(day <= 31 && day >= 1)
-                this.day = day;
-        else{
-            if(day <= 30 && day >= 1)
-                this.day = day;
-            }
-    }
+
+    public void setDay(int day) { this.day = day; }
     public void setMonth(int month) { this.month = month; }
     public void setYear(int year) { this.year = year; }
     public double getSum() {

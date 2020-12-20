@@ -1,3 +1,4 @@
+/*
 package test;
 
 import Model.CostItem;
@@ -22,4 +23,4 @@ class CostItemTest {
     @Test
     void setDay() {
     }
-}
+}*/
