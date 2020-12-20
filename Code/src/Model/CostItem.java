@@ -47,6 +47,7 @@ public class CostItem {
         else
             throw (new CostManagerException("Sum must be positive"));
     }
+
     public void setDetails(String details) {
         this.details = details;
     }
@@ -60,6 +61,7 @@ public class CostItem {
         else
             throw (new CostManagerException("Category does not exist"));
     }
+
     public void setCurrency(String currency) {
         this.currency = currency;
     }

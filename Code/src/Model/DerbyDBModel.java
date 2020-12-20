@@ -39,8 +39,8 @@ public class DerbyDBModel implements IModel {
             }
         }
     }
-    private static boolean doesTableExists(String tableName, Connection conn)
-            throws SQLException {
+
+    private static boolean doesTableExists(String tableName, Connection conn) throws SQLException {
         DatabaseMetaData meta = conn.getMetaData();
         ResultSet result = meta.getTables(null, null, tableName.toUpperCase(), null);
 
