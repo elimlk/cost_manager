@@ -12,7 +12,6 @@ public class CostItem {
     private String currency;
     private String date;
 
-    //TODO Validation Tests
     public CostItem(double sum, String details, String category, String currency, String date) throws CostManagerException {
         setSum(sum);
         setDetails(details);
