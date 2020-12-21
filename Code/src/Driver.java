@@ -2,11 +2,12 @@ import Model.CostItem;
 import Model.CostManagerException;
 import Model.Currency;
 import Model.DerbyDBModel;
+import View.CostManagerView;
 
 public class Driver {
     public static void main(String[] args) {
         // ID | DETAILS | CATEGORY | CURRENCY | DATE | SUM
-        DerbyDBModel db = new DerbyDBModel();
+/*        DerbyDBModel db = new DerbyDBModel();
         db.initDB();
        try {
             db.addCostItem(new CostItem(20,"test_throw","CaRs", Currency.ILS.toString(),"2000-02-26"));
@@ -20,7 +21,9 @@ public class Driver {
             System.out.println("tt");
         } catch (CostManagerException e) {
             e.printStackTrace();
-        }
+        }*/
+
+        new CostManagerView();
     }
 }
 

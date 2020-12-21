@@ -1,4 +1,4 @@
-package test;
+package Test;
 import Model.CostItem;
 import Model.CostManagerException;
 import Model.DerbyDBModel;
