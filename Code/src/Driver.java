@@ -4,7 +4,8 @@ import Model.Currency;
 import Model.DerbyDBModel;
 import View.CostManagerView;
 
-public class Driver {
+public class  Driver {
+
     public static void main(String[] args) {
         // ID | DETAILS | CATEGORY | CURRENCY | DATE | SUM
 /*        DerbyDBModel db = new DerbyDBModel();

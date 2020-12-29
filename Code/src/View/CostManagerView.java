@@ -13,7 +13,7 @@ public class CostManagerView implements ActionListener {
     public CostManagerView () {
 
         frame = new JFrame();
-        frame.setSize(500,500);
+        frame.setSize(680,480);
         frame.setLocationRelativeTo(null);
 
         JButton submitCostButton = new JButton("Submit Cost");
