@@ -1,8 +1,4 @@
-import Model.CostItem;
-import Model.CostManagerException;
-import Model.Currency;
-import Model.DerbyDBModel;
-import View.CostManagerView;
+import View.View;
 
 public class  Driver {
 
@@ -24,7 +20,7 @@ public class  Driver {
             e.printStackTrace();
         }*/
 
-        new CostManagerView();
+        new View();
     }
 }
 
