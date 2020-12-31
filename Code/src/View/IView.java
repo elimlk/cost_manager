@@ -7,7 +7,7 @@ import ViewModel.IViewModel;
 public interface IView  {
   //  public void displayPieChart(Map map);
     public void setViewModel(IViewModel viewModel);
-    public void showMassege(String msg);
+    public void showMessage(String msg);
     public void showItems(CostItem[] item);
 
 }

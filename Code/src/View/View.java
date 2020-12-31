@@ -28,7 +28,7 @@ public class View implements IView {
     }
 
     @Override
-    public void showMassege(String msg) {
+    public void showMessage(String msg) {
     }
 
     @Override
@@ -45,6 +45,7 @@ public class View implements IView {
         private JPanel panelBottom;
         private JPanel panelCategory;
         private JPanel panelCost;
+        private JPanel panelCategories;
 
         //dates panel components
         private JLabel lbDates;
@@ -53,9 +54,12 @@ public class View implements IView {
         private JButton bRefreshReport;
 
         private JLabel lbChartKeys;
-        private JScrollPane sp;
+        private JScrollPane scrollPaneCategories;
         private JLabel lbCategory;
         private JLabel lbSubmitCost;
+        private JLabel lbPieChart;
+        private JLabel lbCostSum;
+        private JTextArea tfCategoriesList;
 
         public ApplicationUI() {
             frame = new JFrame();
@@ -66,21 +70,22 @@ public class View implements IView {
             tfEndDate = new JTextField("End date:",10);
             bRefreshReport = new JButton("Show Report");
 
-            panelReport =new JPanel();
+            panelReport = new JPanel();
             lbChartKeys = new JLabel("Chart keys:");
-
+            lbPieChart = new JLabel("Pie Chart:");
+            lbCostSum = new JLabel("Cost Sum");
+            panelCategories = new JPanel();
+            tfCategoriesList = new JTextArea("\n asdads  \n asdasdasd \n asdasda \n asdasdf");
+            scrollPaneCategories = new JScrollPane (tfCategoriesList);
+            tfCategoriesList.setEditable(false);
 
             panelBottom = new JPanel();
+
             panelCategory = new JPanel();
-            panelCategory.add(lbCategory=new JLabel("category"));
+            lbCategory=new JLabel("category");
+
             panelCost = new JPanel();
-            panelCost.add(lbSubmitCost = new JLabel("Submit cost:"));
-
-            panelBottom.add(panelCategory,BorderLayout.EAST);
-            panelBottom.add(panelCost,BorderLayout.WEST);
-
-
-
+            lbSubmitCost = new JLabel("Submit cost:");
 
         }
 
@@ -94,8 +99,20 @@ public class View implements IView {
             panelDates.add(bRefreshReport);
 
             panelReport.setLayout(new BorderLayout(5,5));
-            panelReport.add(lbChartKeys);
+            panelCategories.add(lbChartKeys, BorderLayout.NORTH);
+            panelCategories.add(scrollPaneCategories,BorderLayout.CENTER);
+            panelReport.add(panelCategories, BorderLayout.WEST);
+            panelReport.add(lbPieChart,BorderLayout.CENTER);
+            panelReport.add(lbCostSum,BorderLayout.EAST);
 
+            panelCategory.add(lbCategory);
+
+            panelCost.add(lbSubmitCost);
+
+            panelBottom.add(panelCategory,BorderLayout.EAST);
+            panelBottom.add(panelCost,BorderLayout.WEST);
+
+            //Call fucntion to show categories.
 
             frame.add(panelDates, BorderLayout.NORTH);
             frame.add(panelReport,BorderLayout.CENTER);
