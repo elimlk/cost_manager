@@ -5,12 +5,15 @@ import ViewModel.IViewModel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class View implements IView {
 
 
 
     private ApplicationUI appUI;
+    private IViewModel vm;
+
 
 
     public View() {
@@ -24,8 +27,10 @@ public class View implements IView {
     }
 
     @Override
-    public void setViewModel(IViewModel viewModel) {
+    public void setViewModel(IViewModel vm) {
+        this.vm = vm;
     }
+
 
     @Override
     public void showMessage(String msg) {
@@ -38,20 +43,23 @@ public class View implements IView {
     public class ApplicationUI{
         private JFrame frame;
 
+        private JPanel panelDates; // TOP
 
-        private JPanel mainPanel;
-        private JPanel panelDates;
-        private JPanel panelReport;
-        private JPanel panelBottom;
-        private JPanel panelCategory;
-        private JPanel panelCost;
-        private JPanel panelCategories;
+        private JPanel panelPieChart; // CENTER
+        private JPanel panelCategoriesKeys; // LEFT
+        private JPanel panelSum; // RIGHT
+
+        private JPanel panelBottom; // BOTTOM
+        private JPanel panelAddCategory; // BOTTOM LEFT
+        private JPanel panelAddCost; // BOTTOM RIGHT
+
 
         //dates panel components
         private JLabel lbDates;
         private JTextField tfStartDate;
         private JTextField tfEndDate;
-        private JButton bRefreshReport;
+        private JButton btnRefreshReport;
+        private JButton btnAddCost;
 
         private JLabel lbChartKeys;
         private JScrollPane scrollPaneCategories;
@@ -59,33 +67,56 @@ public class View implements IView {
         private JLabel lbSubmitCost;
         private JLabel lbPieChart;
         private JLabel lbCostSum;
-        private JTextArea tfCategoriesList;
+        private JTextArea taCategoriesList;
+        private JTextField tfNewCatName;
+        private JButton btnAddCategory;
+
+        private JTextField tfNewCostDetails;
+        private JTextField tfNewCostCurrency;
+        private JTextField tfNewCostCategory;
+        private JTextField tfNewCostSum;
+        private JTextField tfNewCostDate;
+
 
         public ApplicationUI() {
             frame = new JFrame();
 
             panelDates = new JPanel();
-            lbDates = new JLabel("Choose dates: (MM/DD/YYYY) ");
+
+            panelPieChart = new JPanel();
+            panelCategoriesKeys = new JPanel();
+            panelSum = new JPanel();
+
+            panelBottom = new JPanel();
+            panelAddCategory = new JPanel();
+            panelAddCost = new JPanel();
+
+            btnRefreshReport = new JButton("Show Report");
+            btnAddCategory = new JButton("Add Category");
+            btnAddCost = new JButton("Add Cost");
+
+
             tfStartDate = new JTextField("Start date:",10);
             tfEndDate = new JTextField("End date:",10);
-            bRefreshReport = new JButton("Show Report");
+            tfNewCatName = new JTextField("New Category Name");
+            tfNewCostCategory = new JTextField("Category");
+            tfNewCostCurrency = new JTextField("Currency");
+            tfNewCostDate = new JTextField("Date");
+            tfNewCostDetails = new JTextField("Details");
+            tfNewCostSum = new JTextField("Sum");
 
-            panelReport = new JPanel();
+            taCategoriesList = new JTextArea();
+            scrollPaneCategories = new JScrollPane (taCategoriesList);
+            taCategoriesList.setEditable(false);
+
+            lbDates = new JLabel("Choose dates: (MM/DD/YYYY) ");
             lbChartKeys = new JLabel("Chart keys:");
             lbPieChart = new JLabel("Pie Chart:");
             lbCostSum = new JLabel("Cost Sum");
-            panelCategories = new JPanel();
-            tfCategoriesList = new JTextArea("\n asdads  \n asdasdasd \n asdasda \n asdasdf");
-            scrollPaneCategories = new JScrollPane (tfCategoriesList);
-            tfCategoriesList.setEditable(false);
-
-            panelBottom = new JPanel();
-
-            panelCategory = new JPanel();
             lbCategory=new JLabel("category");
-
-            panelCost = new JPanel();
             lbSubmitCost = new JLabel("Submit cost:");
+
+
 
         }
 
@@ -96,39 +127,64 @@ public class View implements IView {
             panelDates.add(lbDates);
             panelDates.add(tfStartDate);
             panelDates.add(tfEndDate);
-            panelDates.add(bRefreshReport);
+            panelDates.add(btnRefreshReport);
 
-            panelReport.setLayout(new BorderLayout(5,5));
-            panelCategories.add(lbChartKeys, BorderLayout.NORTH);
-            panelCategories.add(scrollPaneCategories,BorderLayout.CENTER);
-            panelReport.add(panelCategories, BorderLayout.WEST);
-            panelReport.add(lbPieChart,BorderLayout.CENTER);
-            panelReport.add(lbCostSum,BorderLayout.EAST);
+            panelCategoriesKeys.setLayout(new BorderLayout());
+            panelCategoriesKeys.add(lbChartKeys, BorderLayout.NORTH);
+            panelCategoriesKeys.add(scrollPaneCategories,BorderLayout.CENTER);
 
-            panelCategory.add(lbCategory);
+            panelSum.add(lbCostSum);
 
-            panelCost.add(lbSubmitCost);
+            panelAddCategory.add(tfNewCatName);
+            panelAddCategory.add(btnAddCategory);
 
-            panelBottom.add(panelCategory,BorderLayout.EAST);
-            panelBottom.add(panelCost,BorderLayout.WEST);
+            panelAddCost.setLayout(new GridLayout(3,2));
+            panelAddCost.add(tfNewCostDetails);
+            panelAddCost.add(tfNewCostCurrency);
+            panelAddCost.add(tfNewCostCategory);
+            panelAddCost.add(tfNewCostSum);
+            panelAddCost.add(tfNewCostDate);
+            panelAddCost.add(btnAddCost);
 
-            //Call fucntion to show categories.
 
-            /*
-            panelCategories.setBackground(Color.BLUE);
-            panelReport.setBackground(Color.CYAN);
-            panelCategory.setBackground(Color.GREEN);
-            panelCost.setBackground(Color.MAGENTA);
-            panelDates.setBackground(Color.red);
-            */
+            panelBottom.setLayout(new BorderLayout());
+            panelBottom.add(panelAddCategory,BorderLayout.WEST);
+            panelBottom.add(panelAddCost,BorderLayout.CENTER);
 
+            taCategoriesList.setText(getCategoriesKeys());
+
+            //COLORS FOR TESTING PURPOSES
+            panelDates.setBackground(Color.BLUE);
+            panelPieChart.setBackground(Color.CYAN);
+            panelAddCategory.setBackground(Color.GREEN);
+            panelAddCost.setBackground(Color.MAGENTA);
+            panelCategoriesKeys.setBackground(Color.red);
+            panelSum.setBackground(Color.BLACK);
+
+
+            frame.setLayout(new BorderLayout());
             frame.add(panelDates, BorderLayout.NORTH);
-            frame.add(panelReport,BorderLayout.CENTER);
+            frame.add(panelPieChart,BorderLayout.CENTER);
+            frame.add(panelSum, BorderLayout.EAST);
+            frame.add(panelCategoriesKeys, BorderLayout.WEST);
             frame.add(panelBottom,BorderLayout.SOUTH);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setTitle("Cost Manager");
             frame.setVisible(true);
         }
+    }
+
+    public String getCategoriesKeys(){
+
+        List<String> categories = vm.getCategoriesKeys();
+
+        StringBuilder sb = new StringBuilder();
+        for(String cat : categories) {
+            sb.append(cat);
+            sb.append("\n");
+        }
+        String text = sb.toString();
+        return text;
     }
 
 

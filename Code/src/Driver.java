@@ -1,4 +1,11 @@
+
+import Model.IModel;
+import View.IView;
+import ViewModel.IViewModel;
+
+import Model.DerbyDBModel;
 import View.View;
+import ViewModel.ViewModel;
 
 public class  Driver {
 
@@ -20,7 +27,16 @@ public class  Driver {
             e.printStackTrace();
         }*/
 
-        new View();
+        //creating the application components
+        IModel model = new DerbyDBModel();
+        IView view = new View();
+        IViewModel vm = new ViewModel();
+
+        //connecting the components with each other
+        view.setViewModel(vm);
+        vm.setModel(model);
+        vm.setView(view);
+
     }
 }
 
