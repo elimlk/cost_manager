@@ -114,6 +114,14 @@ public class View implements IView {
 
             //Call fucntion to show categories.
 
+            /*
+            panelCategories.setBackground(Color.BLUE);
+            panelReport.setBackground(Color.CYAN);
+            panelCategory.setBackground(Color.GREEN);
+            panelCost.setBackground(Color.MAGENTA);
+            panelDates.setBackground(Color.red);
+            */
+
             frame.add(panelDates, BorderLayout.NORTH);
             frame.add(panelReport,BorderLayout.CENTER);
             frame.add(panelBottom,BorderLayout.SOUTH);
