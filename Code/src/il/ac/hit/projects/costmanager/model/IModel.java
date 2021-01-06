@@ -1,7 +1,6 @@
-package Model;
+package il.ac.hit.projects.costmanager.model;
 
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 
 public interface IModel {
