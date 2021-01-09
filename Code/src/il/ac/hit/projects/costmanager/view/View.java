@@ -2,6 +2,9 @@ package il.ac.hit.projects.costmanager.view;
 
 import il.ac.hit.projects.costmanager.model.CostItem;
 import il.ac.hit.projects.costmanager.viewModel.IViewModel;
+import org.jfree.chart.ChartPanel;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.ui.RefineryUtilities;
 
 import javax.swing.*;
 import java.awt.*;
@@ -120,7 +123,6 @@ public class View implements IView {
             lbSubmitCost = new JLabel("Submit cost:");
 
 
-
         }
 
         public void start(){
@@ -155,6 +157,18 @@ public class View implements IView {
             panelBottom.add(panelAddCost,BorderLayout.CENTER);
 
             taCategoriesList.setText(getCategoriesKeys());
+
+            DefaultPieDataset dataset = new DefaultPieDataset( );
+            dataset.setValue( "IPhone 5s" , 20.0 );
+            dataset.setValue( "SamSung Grand" , 20.0 );
+            dataset.setValue( "MotoGP" , 40.0 );
+            dataset.setValue( "Nokia Lumia" , 10.0 );
+
+            PieChart pieChart = new PieChart("Cost Summary");
+            panelPieChart = new ChartPanel( pieChart.createChart(dataset));
+//            demo.setSize( 560 , 367 );
+//            RefineryUtilities.centerFrameOnScreen( demo );
+//            demo.setVisible( true );
 
 /*            //COLORS FOR TESTING PURPOSES
             panelDates.setBackground(Color.BLUE);
@@ -192,7 +206,10 @@ public class View implements IView {
             btnRefreshReport.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    showMessage("show report");
+                    dataset.setValue( "test1 5s" , 35.0 );
+                    dataset.setValue( "SamSung Grand" , 10 );
+                    dataset.setValue( "MotoGP" , 20 );
+                    dataset.setValue( "Nokia Lumia" , 35 );
                 }
             });
         }
