@@ -20,7 +20,7 @@ public class CostItem {
         if (isDateValid(date))
           setItemDate(date);
         else
-            throw (new CostManagerException("Invalid Date"));
+            throw (new CostManagerException("Invalid Date - Date must be YYYY-MM-DD"));
 
     }
 

@@ -118,6 +118,7 @@ public class View implements IView {
 
 
 
+
         }
 
         public void start(){
@@ -154,12 +155,15 @@ public class View implements IView {
             taCategoriesList.setText(getCategoriesKeys());
 
             //COLORS FOR TESTING PURPOSES
+            /*
             panelDates.setBackground(Color.BLUE);
             panelPieChart.setBackground(Color.CYAN);
             panelAddCategory.setBackground(Color.GREEN);
             panelAddCost.setBackground(Color.MAGENTA);
             panelCategoriesKeys.setBackground(Color.red);
             panelSum.setBackground(Color.BLACK);
+
+             */
 
 
             frame.setLayout(new BorderLayout());
