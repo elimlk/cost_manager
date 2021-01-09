@@ -1,10 +1,12 @@
-package View;
+package il.ac.hit.projects.costmanager.view;
 
-import Model.CostItem;
-import ViewModel.IViewModel;
+import il.ac.hit.projects.costmanager.model.CostItem;
+import il.ac.hit.projects.costmanager.viewModel.IViewModel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 public class View implements IView {
@@ -34,6 +36,7 @@ public class View implements IView {
 
     @Override
     public void showMessage(String msg) {
+        JOptionPane.showMessageDialog(null,msg);
     }
 
     @Override
@@ -118,7 +121,6 @@ public class View implements IView {
 
 
 
-
         }
 
         public void start(){
@@ -154,16 +156,13 @@ public class View implements IView {
 
             taCategoriesList.setText(getCategoriesKeys());
 
-            //COLORS FOR TESTING PURPOSES
-            /*
+/*            //COLORS FOR TESTING PURPOSES
             panelDates.setBackground(Color.BLUE);
             panelPieChart.setBackground(Color.CYAN);
             panelAddCategory.setBackground(Color.GREEN);
             panelAddCost.setBackground(Color.MAGENTA);
             panelCategoriesKeys.setBackground(Color.red);
-            panelSum.setBackground(Color.BLACK);
-
-             */
+            panelSum.setBackground(Color.BLACK);*/
 
 
             frame.setLayout(new BorderLayout());
@@ -175,8 +174,33 @@ public class View implements IView {
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setTitle("Cost Manager");
             frame.setVisible(true);
+
+            btnAddCost.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    showMessage("add cost msg");
+                }
+            });
+
+            btnAddCategory.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    showMessage("add new category");
+                }
+            });
+
+            btnRefreshReport.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    showMessage("show report");
+                }
+            });
         }
+
+
     }
+
+
 
     public String getCategoriesKeys(){
 

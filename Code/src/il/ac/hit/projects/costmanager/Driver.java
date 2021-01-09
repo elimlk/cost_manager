@@ -1,11 +1,12 @@
+package il.ac.hit.projects.costmanager;
 
-import Model.IModel;
-import View.IView;
-import ViewModel.IViewModel;
+import il.ac.hit.projects.costmanager.model.IModel;
+import il.ac.hit.projects.costmanager.view.IView;
+import il.ac.hit.projects.costmanager.viewModel.IViewModel;
 
-import Model.DerbyDBModel;
-import View.View;
-import ViewModel.ViewModel;
+import il.ac.hit.projects.costmanager.model.DerbyDBModel;
+import il.ac.hit.projects.costmanager.view.View;
+import il.ac.hit.projects.costmanager.viewModel.ViewModel;
 
 public class  Driver {
 

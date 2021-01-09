@@ -1,4 +1,4 @@
-package Model;
+package il.ac.hit.projects.costmanager.model;
 
 import java.util.ArrayList;
 import java.util.List;

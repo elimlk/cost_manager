@@ -1,8 +1,8 @@
-package ViewModel;
+package il.ac.hit.projects.costmanager.viewModel;
 
-import Model.CostItem;
-import Model.IModel;
-import View.IView;
+import il.ac.hit.projects.costmanager.model.CostItem;
+import il.ac.hit.projects.costmanager.model.IModel;
+import il.ac.hit.projects.costmanager.view.IView;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;

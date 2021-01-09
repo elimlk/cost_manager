@@ -1,4 +1,4 @@
-package Model;
+package il.ac.hit.projects.costmanager.model;
 public class CostManagerException extends Exception {
 
     public CostManagerException (String message) {

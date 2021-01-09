@@ -1,4 +1,4 @@
-package Model;
+package il.ac.hit.projects.costmanager.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
