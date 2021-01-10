@@ -39,4 +39,9 @@ public class ViewModel implements IViewModel {
     public List<String> getCategoriesKeys() {
         return model.getCategories();
     }
+
+    @Override
+    public void addNewCat(String newCatName) {
+
+    }
 }

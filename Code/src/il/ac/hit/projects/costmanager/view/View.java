@@ -1,6 +1,7 @@
 package il.ac.hit.projects.costmanager.view;
 
 import il.ac.hit.projects.costmanager.model.CostItem;
+import il.ac.hit.projects.costmanager.model.CostManagerException;
 import il.ac.hit.projects.costmanager.viewModel.IViewModel;
 import org.jfree.chart.ChartPanel;
 import org.jfree.data.general.DefaultPieDataset;
@@ -199,7 +200,14 @@ public class View implements IView {
             btnAddCategory.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    showMessage("add new category");
+                    try {
+                        String newCatName = tfNewCatName.getText();
+                        vm.addNewCat(newCatName);
+
+
+                    } catch (CostManagerException exception) {
+                        showMessage(exception.getMessage());
+                    }
                 }
             });
 

@@ -11,4 +11,6 @@ public interface IViewModel {
     public void setModel(IModel model);
     public void addCostItem(CostItem item);
     List<String> getCategoriesKeys();
+
+    void addNewCat(String newCatName);
 }
