@@ -108,7 +108,7 @@ public class View implements IView {
             tfNewCatName = new JTextField("New Category Name");
             tfNewCostCategory = new JTextField("Category");
             tfNewCostCurrency = new JTextField("Currency");
-            tfNewCostDate = new JTextField("Date");
+            tfNewCostDate = new JTextField("YYYY-MM-DD");
             tfNewCostDetails = new JTextField("Details");
             tfNewCostSum = new JTextField("Sum");
 
@@ -160,10 +160,10 @@ public class View implements IView {
             taCategoriesList.setText(getCategoriesKeys());
 
             DefaultPieDataset dataset = new DefaultPieDataset( );
-            dataset.setValue( "IPhone 5s" , 20.0 );
-            dataset.setValue( "SamSung Grand" , 20.0 );
-            dataset.setValue( "MotoGP" , 40.0 );
-            dataset.setValue( "Nokia Lumia" , 10.0 );
+            dataset.setValue( "Food" , 800 );
+            dataset.setValue( "Online shopping" , 300 );
+            dataset.setValue( "Fuel and Cars" , 100 );
+            dataset.setValue( "Bills" , 650 );
 
             PieChart pieChart = new PieChart("Cost Summary");
             panelPieChart = new ChartPanel( pieChart.createChart(dataset));
@@ -193,6 +193,17 @@ public class View implements IView {
             btnAddCost.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    try {
+                        vm.addCostItem(new CostItem(Double.parseDouble(tfNewCostSum.getText()),
+                                tfNewCostDetails.getText(),
+                                tfNewCostCategory.getText(),
+                                tfNewCostCurrency.getText(),
+                                tfNewCostDate.getText()));
+                        // not working problem with "isValidDate"
+                        showMessage("Cost add successfully");
+                    } catch (CostManagerException ex) {
+                        showMessage(ex.getMessage());
+                    }
                     showMessage("add cost msg");
                 }
             });
@@ -204,8 +215,7 @@ public class View implements IView {
                         String newCatName = tfNewCatName.getText();
                         vm.addNewCat(newCatName);
 
-
-                    } catch (CostManagerException exception) {
+                    } catch (Exception exception) {
                         showMessage(exception.getMessage());
                     }
                 }
@@ -214,10 +224,11 @@ public class View implements IView {
             btnRefreshReport.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    dataset.setValue( "test1 5s" , 35.0 );
-                    dataset.setValue( "SamSung Grand" , 10 );
-                    dataset.setValue( "MotoGP" , 20 );
-                    dataset.setValue( "Nokia Lumia" , 35 );
+
+                    dataset.setValue( "Food" , 1200 );
+                    dataset.setValue( "Online shopping" , 150 );
+                    dataset.setValue( "Fuel and Cars" , 300 );
+                    dataset.setValue( "Bills" , 1000 );
                 }
             });
         }

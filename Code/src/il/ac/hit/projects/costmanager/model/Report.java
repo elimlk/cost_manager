@@ -3,8 +3,9 @@ package il.ac.hit.projects.costmanager.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Report {
 
+
+public class Report {
     private List<CostItem> listOfItems;
 
     public Report() {
@@ -23,6 +24,9 @@ public class Report {
         return sum;
     }
 
-    public void calcPercentCategory(){ } //Depends on view\model view
+    public void calcPercentCategory(){
+
+
+        } //Depends on view\model view
 
 }

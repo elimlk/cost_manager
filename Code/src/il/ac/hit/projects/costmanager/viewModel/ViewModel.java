@@ -1,6 +1,7 @@
 package il.ac.hit.projects.costmanager.viewModel;
 
 import il.ac.hit.projects.costmanager.model.CostItem;
+import il.ac.hit.projects.costmanager.model.CostManagerException;
 import il.ac.hit.projects.costmanager.model.DerbyDBModel;
 import il.ac.hit.projects.costmanager.model.IModel;
 import il.ac.hit.projects.costmanager.view.IView;
@@ -42,6 +43,10 @@ public class ViewModel implements IViewModel {
 
     @Override
     public void addNewCat(String newCatName) {
-
+        try {
+            model.addCategory(newCatName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
