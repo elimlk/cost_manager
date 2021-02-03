@@ -146,6 +146,7 @@ public class DerbyDBModel implements IModel {
             Statement statement = conn.createStatement();
             String sql = "SELECT * FROM "+tableName+
                             " WHERE date BETWEEN '"+sDate+"' AND '"+ eDate+"'";
+            //uuu
             ResultSet result = statement.executeQuery(sql);
             while (result.next()) {
                 costItem = new CostItem(
