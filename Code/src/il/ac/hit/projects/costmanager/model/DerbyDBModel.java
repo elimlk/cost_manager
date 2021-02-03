@@ -6,7 +6,8 @@ import java.util.List;
 public class DerbyDBModel implements IModel {
 
     String databaseURL = "jdbc:derby:costsManagerDB1;create=true";
-    String tableName = "costTestCat14";
+    String tableName = "costTestCat16";
+
 
     public void initDB() {
 

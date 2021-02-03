@@ -167,17 +167,6 @@ public class View implements IView {
 
             PieChart pieChart = new PieChart("Cost Summary");
             panelPieChart = new ChartPanel( pieChart.createChart(dataset));
-//            demo.setSize( 560 , 367 );
-//            RefineryUtilities.centerFrameOnScreen( demo );
-//            demo.setVisible( true );
-
-/*            //COLORS FOR TESTING PURPOSES
-            panelDates.setBackground(Color.BLUE);
-            panelPieChart.setBackground(Color.CYAN);
-            panelAddCategory.setBackground(Color.GREEN);
-            panelAddCost.setBackground(Color.MAGENTA);
-            panelCategoriesKeys.setBackground(Color.red);
-            panelSum.setBackground(Color.BLACK);*/
 
 
             frame.setLayout(new BorderLayout());

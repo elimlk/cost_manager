@@ -30,8 +30,9 @@ public class  Driver {
 
         //creating the application components
         IModel model = new DerbyDBModel();
-        IView view = new View();
+        model.initDB();
         IViewModel vm = new ViewModel();
+        IView view = new View();
 
         //connecting the components with each other
         view.setViewModel(vm);

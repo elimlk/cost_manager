@@ -28,6 +28,7 @@ public class ViewModel implements IViewModel {
 
     @Override
     public void setModel(IModel model) {
+
         this.model = model;
     }
 
