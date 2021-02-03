@@ -7,6 +7,7 @@ import il.ac.hit.projects.costmanager.model.IModel;
 import il.ac.hit.projects.costmanager.view.IView;
 import il.ac.hit.projects.costmanager.view.View;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -33,7 +34,8 @@ public class ViewModel implements IViewModel {
     }
 
     @Override
-    public void addCostItem(CostItem item) {
+    public void addCostItem(CostItem item) throws CostManagerException {
+        //model.addCostItem(item);
 
     }
 
@@ -43,11 +45,7 @@ public class ViewModel implements IViewModel {
     }
 
     @Override
-    public void addNewCat(String newCatName) {
-        try {
+    public void addNewCat(String newCatName) throws CostManagerException{
             model.addCategory(newCatName);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

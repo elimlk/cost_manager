@@ -6,7 +6,7 @@ import java.util.List;
 public class DerbyDBModel implements IModel {
 
     String databaseURL = "jdbc:derby:costsManagerDB1;create=true";
-    String tableName = "costTestCat16";
+    String tableName = "costTestCat17";
 
 
     public void initDB() {
@@ -57,7 +57,9 @@ public class DerbyDBModel implements IModel {
                 return (result.getInt("cost_id"));
                 //return Integer.parseInt(result.getString("cost_id"));
             }
-            DriverManager.getConnection("jdbc:derby:costsManagerDB1;shutdown=true");
+            //DriverManager.getConnection("jdbc:derby:costsManagerDB1;shutdown=true");
+            statement.close();
+            result.close();
         } catch (SQLException ex) {
             if (ex.getSQLState().equals("08006")) {
                 System.out.println("Derby shutdown normally");
@@ -77,7 +79,9 @@ public class DerbyDBModel implements IModel {
                 return (result.getInt("cost_id"));
 
             }
-            DriverManager.getConnection("jdbc:derby:costsManagerDB1;shutdown=true");
+            //DriverManager.getConnection("jdbc:derby:costsManagerDB1;shutdown=true");
+            statement.close();
+            result.close();
         } catch (SQLException ex) {
             if (ex.getSQLState().equals("08006")) {
                 System.out.println("Derby shutdown normally");
@@ -122,7 +126,9 @@ public class DerbyDBModel implements IModel {
             String sql = "INSERT INTO "+tableName+" VALUES ("+Record_id+",'"+item.getDetails()+"','"+item.getCategory()+"','"+
                                 item.getCurrency()+"','"+item.getDate()+"',"+item.getSum()+")";
             statement.execute(sql);
-            DriverManager.getConnection("jdbc:derby:costsManagerDB1;shutdown=true");
+            //DriverManager.getConnection("jdbc:derby:costsManagerDB1;shutdown=true");
+            statement.close();
+            //throw new CostManagerException("Failed to add cost item");
         } catch (SQLException e) {
             if (e.getSQLState().equals("08006")) {
                 System.out.println("Derby shutdown normally");
@@ -143,7 +149,7 @@ public class DerbyDBModel implements IModel {
             ResultSet result = statement.executeQuery(sql);
             while (result.next()) {
                 costItem = new CostItem(
-                        result.getDouble("my_sum"),
+                        result.getString("my_sum"),
                         result.getString("cost_details"),
                         result.getString("cat"),
                         result.getString("currency"),
@@ -164,22 +170,51 @@ public class DerbyDBModel implements IModel {
     }
 
     @Override
-    public void addCategory(String category) {
-        String output = category.substring(0, 1).toUpperCase() + category.substring(1).toLowerCase();
+    public void addCategory(String newCategory) throws CostManagerException {
+        String input = newCategory.substring(0, 1).toUpperCase() + newCategory.substring(1).toLowerCase();
         int nextID = lastCategoryID()-1;
+
         try (Connection conn = DriverManager.getConnection(databaseURL)) {
+            if (isCategoryExists(input))
+                throw (new CostManagerException("Category already exists"));
             // ID | DETAILS | CATEGORY | CURRENCY | DATE | SUM
             Statement statement = conn.createStatement();
-            String sql = "INSERT INTO "+tableName+" VALUES ("+nextID+", NULL,'"+output+"', NULL, NULL, NULL)";
+            String sql = "INSERT INTO "+tableName+" VALUES ("+nextID+", NULL,'"+input+"', NULL, NULL, NULL)";
             statement.execute(sql);
-            DriverManager.getConnection("jdbc:derby:costsManagerDB1;shutdown=true");
+            //DriverManager.getConnection("jdbc:derby:costsManagerDB1;shutdown=true");
+            statement.close();
         } catch (SQLException e) {
             if (e.getSQLState().equals("08006")) {
-                System.out.println("Derby shutdown normally");
+                //System.out.println("Derby shutdown normally");
             } else {
                 e.printStackTrace();
             }
         }
+    }
+
+    private boolean isCategoryExists(String newCategory) {
+        try (Connection conn = DriverManager.getConnection(databaseURL)) {
+            Statement statement = conn.createStatement();
+            String sql = "SELECT cat FROM "+tableName;
+            ResultSet result = statement.executeQuery(sql);
+            while (result.next()) {
+                if (result.getString("cat").equals(newCategory)) {
+                    statement.close();
+                    result.close();
+                    return true;
+                }
+            }
+            //DriverManager.getConnection("jdbc:derby:costsManagerDB1;shutdown=true");
+            statement.close();
+            result.close();
+        } catch (SQLException ex) {
+            if (ex.getSQLState().equals("08006")) {
+                System.out.println("Derby shutdown normally");
+            } else {
+                ex.printStackTrace();
+            }
+        }
+        return false;
     }
 
     public List<String> getCategories (){
@@ -191,7 +226,9 @@ public class DerbyDBModel implements IModel {
             while (result.next()) {
                 categories.add(result.getString("cat"));
             }
-            DriverManager.getConnection("jdbc:derby:costsManagerDB1;shutdown=true");
+            //DriverManager.getConnection("jdbc:derby:costsManagerDB1;shutdown=true");
+            statement.close();
+            result.close();
         } catch (SQLException e) {
             if (e.getSQLState().equals("08006")) {
                 System.out.println("Derby shutdown normally");

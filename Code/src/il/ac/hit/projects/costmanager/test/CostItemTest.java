@@ -16,7 +16,7 @@ class CostItemTest {
         DerbyDBModel db = new DerbyDBModel();
         db.initDB();
 
-        item = new CostItem(20,"junit test",
+        item = new CostItem("20","junit test",
                 "Food",
                 "ILS",
                 "2020-02-12");
@@ -30,7 +30,7 @@ class CostItemTest {
     void CostItemConstructorTest() {
         assertThrows(CostManagerException.class,
                 ()->{
-                    CostItem item = new CostItem(20,"junit test",
+                    CostItem item = new CostItem("20","junit test",
                             "Food",
                             "ILS",
                             "2020-11-33");
@@ -51,11 +51,11 @@ class CostItemTest {
     void setSum() {
         assertThrows(CostManagerException.class,
                 ()->{
-                    item.setSum(-20);
+                    item.setSum("-20");
                 });
         assertThrows(CostManagerException.class,
                 ()->{
-                    item.setSum(0);
+                    item.setSum("0");
                 });
     }
 

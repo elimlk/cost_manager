@@ -183,7 +183,8 @@ public class View implements IView {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
-                        vm.addCostItem(new CostItem(Double.parseDouble(tfNewCostSum.getText()),
+                        vm.addCostItem(new CostItem(
+                                tfNewCostSum.getText(),
                                 tfNewCostDetails.getText(),
                                 tfNewCostCategory.getText(),
                                 tfNewCostCurrency.getText(),
@@ -193,7 +194,6 @@ public class View implements IView {
                     } catch (CostManagerException ex) {
                         showMessage(ex.getMessage());
                     }
-                    showMessage("add cost msg");
                 }
             });
 
@@ -203,8 +203,10 @@ public class View implements IView {
                     try {
                         String newCatName = tfNewCatName.getText();
                         vm.addNewCat(newCatName);
+                        taCategoriesList.setText(getCategoriesKeys());
 
-                    } catch (Exception exception) {
+
+                    } catch (CostManagerException exception) {
                         showMessage(exception.getMessage());
                     }
                 }

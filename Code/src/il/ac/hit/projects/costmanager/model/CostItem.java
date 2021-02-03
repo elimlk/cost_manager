@@ -12,16 +12,12 @@ public class CostItem {
     private String currency;
     private String date;
 
-    public CostItem(double sum, String details, String category, String currency, String date) throws CostManagerException {
+    public CostItem(String sum, String details, String category, String currency, String date) throws CostManagerException {
         setSum(sum);
         setDetails(details);
         setCategory(category);
         setCurrency(currency);
-        if (isDateValid(date))
-          setItemDate(date);
-        else
-            throw (new CostManagerException("Invalid Date - Date must be YYYY-MM-DD"));
-
+        setItemDate(date);
     }
 
     public static boolean isDateValid(String text) {
@@ -37,15 +33,25 @@ public class CostItem {
         }
     }
 
-    private void setItemDate(String date) {
-        this.date = date;
+    private void setItemDate(String date) throws CostManagerException {
+        if (isDateValid(date))
+            this.date = date;
+        else
+            throw (new CostManagerException("Invalid Date - Date must be YYYY-MM-DD"));
+
     }
 
-    public void setSum(double sum) throws CostManagerException {
-        if (sum > 0)
-            this.sum = sum;
-        else
-            throw (new CostManagerException("Sum must be positive"));
+    public void setSum(String sum) throws CostManagerException {
+        try {
+            Double parseSum = Double.parseDouble(sum);
+            if (parseSum > 0) {
+                this.sum = parseSum;
+            }
+            else throw (new CostManagerException("Sum must be positive"));
+        }
+         catch (Exception e) {
+            throw (new CostManagerException("Sum must be a number"));
+        }
     }
 
     public void setDetails(String details) {
@@ -62,8 +68,16 @@ public class CostItem {
             throw (new CostManagerException("Category does not exist"));
     }
 
-    public void setCurrency(String currency) {
-        this.currency = currency;
+    public void setCurrency(String currency) throws CostManagerException {
+        String upperCurrency = currency.toUpperCase();
+        for (Currency c : Currency.values()) {
+            if (c.name().equals(upperCurrency)) {
+                this.currency = upperCurrency;
+                return;
+            }
+        }
+        throw (new CostManagerException("Invalid Currency"));
+
     }
 
     public double getSum() {
