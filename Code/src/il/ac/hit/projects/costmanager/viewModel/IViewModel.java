@@ -17,5 +17,5 @@ public interface IViewModel {
 
     void addNewCat(String newCatName) throws CostManagerException;
 
-    Report getReport(String startDate, String endDate);
+    Report getReport(String startDate, String endDate) throws CostManagerException;
 }

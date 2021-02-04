@@ -4,6 +4,7 @@ import il.ac.hit.projects.costmanager.model.CostItem;
 import il.ac.hit.projects.costmanager.model.CostManagerException;
 import il.ac.hit.projects.costmanager.model.Report;
 import il.ac.hit.projects.costmanager.viewModel.IViewModel;
+import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.ui.RefineryUtilities;
@@ -12,6 +13,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 
 public class View implements IView {
@@ -48,6 +51,19 @@ public class View implements IView {
     public void showItems(CostItem[] item) {
     }
 
+    public String getCategoriesKeys(){
+
+        List<String> categories = vm.getCategoriesKeys();
+
+        StringBuilder sb = new StringBuilder();
+        for(String cat : categories) {
+            sb.append(cat);
+            sb.append("\n");
+        }
+        String text = sb.toString();
+        return text;
+    }
+
     public class ApplicationUI{
         private JFrame frame;
 
@@ -68,6 +84,7 @@ public class View implements IView {
         private JTextField tfEndDate;
         private JButton btnRefreshReport;
         private JButton btnAddCost;
+        private DefaultPieDataset dataset;
 
         private JLabel lbChartKeys;
         private JScrollPane scrollPaneCategories;
@@ -102,6 +119,7 @@ public class View implements IView {
             btnRefreshReport = new JButton("Show Report");
             btnAddCategory = new JButton("Add Category");
             btnAddCost = new JButton("Add Cost");
+            dataset = new DefaultPieDataset( );
 
 
             tfStartDate = new JTextField("Start date:",10);
@@ -117,10 +135,10 @@ public class View implements IView {
             scrollPaneCategories = new JScrollPane (taCategoriesList);
             taCategoriesList.setEditable(false);
 
-            lbDates = new JLabel("Choose dates: (MM/DD/YYYY) ");
+            lbDates = new JLabel("Choose dates: (YYYY-MM-DD) ");
             lbChartKeys = new JLabel("Chart keys:");
             lbPieChart = new JLabel("Pie Chart:");
-            lbCostSum = new JLabel("Cost Sum");
+            lbCostSum = new JLabel(" ");
             lbCategory=new JLabel("category");
             lbSubmitCost = new JLabel("Submit cost:");
 
@@ -160,14 +178,12 @@ public class View implements IView {
 
             taCategoriesList.setText(getCategoriesKeys());
 
-            DefaultPieDataset dataset = new DefaultPieDataset( );
-            dataset.setValue( "Food" , 800 );
-            dataset.setValue( "Online shopping" , 300 );
-            dataset.setValue( "Fuel and Cars" , 100 );
-            dataset.setValue( "Bills" , 650 );
+
 
             PieChart pieChart = new PieChart("Cost Summary");
-            panelPieChart = new ChartPanel( pieChart.createChart(dataset));
+            panelPieChart = new ChartPanel( ChartFactory.createPieChart("Cost Summary", dataset,true,true,false)); // data    );
+
+            updatePieChart("0001-01-01", "3000-01-01");
 
 
             frame.setLayout(new BorderLayout());
@@ -216,37 +232,38 @@ public class View implements IView {
             btnRefreshReport.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-
+                    HashMap<String, Double> categoriesSum = new HashMap<String, Double>();
                     String startDate = tfStartDate.getText();
                     String endDate = tfEndDate.getText();
-                    Report report = vm.getReport(startDate,endDate);
 
+                    updatePieChart(startDate, endDate);
 
-                    dataset.setValue( "Food" , 1200 );
-                    dataset.setValue( "Online shopping" , 150 );
-                    dataset.setValue( "Fuel and Cars" , 300 );
-                    dataset.setValue( "Bills" , 1000 );
                 }
             });
         }
 
+        private void updatePieChart(String sDate, String eDate){
 
-    }
+            HashMap<String, Double> categoriesSum = new HashMap<String, Double>();
 
+            try {
+                Report report = vm.getReport(sDate,eDate);
+                categoriesSum = report.calcReport();
 
+                for (String index : categoriesSum.keySet()) {
+                    System.out.println("key: " + index + " value: " + categoriesSum.get(index));
+                    dataset.setValue(index,categoriesSum.get(index));
+                }
 
-    public String getCategoriesKeys(){
-
-        List<String> categories = vm.getCategoriesKeys();
-
-        StringBuilder sb = new StringBuilder();
-        for(String cat : categories) {
-            sb.append(cat);
-            sb.append("\n");
+            } catch (CostManagerException ex) {
+                showMessage(ex.getMessage());
+            }
         }
-        String text = sb.toString();
-        return text;
     }
+
+
+
+
 
 
 }

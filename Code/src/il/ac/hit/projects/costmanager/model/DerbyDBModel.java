@@ -1,4 +1,5 @@
 package il.ac.hit.projects.costmanager.model;
+import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +7,7 @@ import java.util.List;
 public class DerbyDBModel implements IModel {
 
     String databaseURL = "jdbc:derby:costsManagerDB1;create=true";
-    String tableName = "costTestCat17";
+    String tableName = "costTableTest1";
 
 
     public void initDB() {
@@ -31,7 +32,8 @@ public class DerbyDBModel implements IModel {
                     System.out.println("insert cat row");
                 }
             }
-            DriverManager.getConnection("jdbc:derby:costsManagerDB1;shutdown=true");
+            statement.close();
+            //DriverManager.getConnection("jdbc:derby:costsManagerDB1;shutdown=true");
         } catch (SQLException ex) {
             if (ex.getSQLState().equals("08006")) {
                 System.out.println("Derby shutdown normally");
@@ -139,34 +141,42 @@ public class DerbyDBModel implements IModel {
     }
 
     @Override
-    public Report showReport(String sDate,String eDate) throws CostManagerException {
-        Report report = new Report();
-        CostItem costItem ;
+    public Report getReport(String sDate, String eDate) throws CostManagerException {
+
+        if (!(CostItem.isDateValid(sDate) && CostItem.isDateValid(eDate)))
+            throw new CostManagerException("Date must be in format 'YYYY-MM--DD'");
+
+        Report report = new Report(getCategories());
+        CostItem currentCostItem;
+
         try (Connection conn = DriverManager.getConnection(databaseURL)) {
             Statement statement = conn.createStatement();
-            String sql = "SELECT * FROM "+tableName+
-                            " WHERE date BETWEEN '"+sDate+"' AND '"+ eDate+"'";
-            //uuu
+            String sql = "SELECT * FROM " + tableName +
+                    " WHERE date BETWEEN '" + sDate + "' AND '" + eDate + "'";
+
             ResultSet result = statement.executeQuery(sql);
             while (result.next()) {
-                costItem = new CostItem(
+                currentCostItem = new CostItem(
                         result.getString("my_sum"),
                         result.getString("cost_details"),
                         result.getString("cat"),
                         result.getString("currency"),
                         result.getDate("date").toString());
-                        report.addItem(costItem);
+                report.addItem(currentCostItem);
             }
-            DriverManager.getConnection("jdbc:derby:costsManagerDB1;shutdown=true");
+            statement.close();
+            result.close();
+            //DriverManager.getConnection("jdbc:derby:costsManagerDB1;shutdown=true");
         } catch (SQLException e) {
             if (e.getSQLState().equals("08006")) {
                 System.out.println("Derby shutdown normally");
             } else {
                 e.printStackTrace();
             }
-        }finally {
+        } finally {
             return report;
         }
+
 
     }
 

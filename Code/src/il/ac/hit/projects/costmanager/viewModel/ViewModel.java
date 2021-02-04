@@ -2,7 +2,6 @@ package il.ac.hit.projects.costmanager.viewModel;
 
 import il.ac.hit.projects.costmanager.model.*;
 import il.ac.hit.projects.costmanager.view.IView;
-import il.ac.hit.projects.costmanager.view.View;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -32,7 +31,7 @@ public class ViewModel implements IViewModel {
 
     @Override
     public void addCostItem(CostItem item) throws CostManagerException {
-        //model.addCostItem(item);
+        model.addCostItem(item);
 
     }
 
@@ -47,7 +46,8 @@ public class ViewModel implements IViewModel {
     }
 
     @Override
-    public Report getReport(String startDate, String endDate) {
-        return null;
+    public Report getReport(String startDate, String endDate) throws CostManagerException {
+        return model.getReport(startDate,endDate);
+
     }
 }
