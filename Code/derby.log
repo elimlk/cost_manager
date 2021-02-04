@@ -1,0 +1,29 @@
+----------------------------------------------------------------
+Thu Feb 04 12:14:43 IST 2021:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a816c00e-0177-6c89-7283-000007207dd8 
+on database directory C:\Users\elira\Google Drive\מדעי המחשב -תואר (אלירן)\שנה ג\סמסטר א\05 - תכנות בסביבת אינטרנט\finalProject_costManager\cost_manager\Code\costsManagerDB1 with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@5a07e868 
+Loaded from file:/C:/Users/elira/Google%20Drive/%d7%9e%d7%93%d7%a2%d7%99%20%d7%94%d7%9e%d7%97%d7%a9%d7%91%20-%d7%aa%d7%95%d7%90%d7%a8%20(%d7%90%d7%9c%d7%99%d7%a8%d7%9f)/%d7%a9%d7%a0%d7%94%20%d7%92/%d7%a1%d7%9e%d7%a1%d7%98%d7%a8%20%d7%90/05%20-%20%d7%aa%d7%9b%d7%a0%d7%95%d7%aa%20%d7%91%d7%a1%d7%91%d7%99%d7%91%d7%aa%20%d7%90%d7%99%d7%a0%d7%98%d7%a8%d7%a0%d7%98/finalProject_costManager/cost_manager/db-derby-10.15.2.0-bin/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=13.0.2+8
+user.dir=C:\Users\elira\Google Drive\מדעי המחשב -תואר (אלירן)\שנה ג\סמסטר א\05 - תכנות בסביבת אינטרנט\finalProject_costManager\cost_manager\Code
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Thu Feb 04 12:14:44 IST 2021:
+Shutting down instance a816c00e-0177-6c89-7283-000007207dd8 on database directory C:\Users\elira\Google Drive\מדעי המחשב -תואר (אלירן)\שנה ג\סמסטר א\05 - תכנות בסביבת אינטרנט\finalProject_costManager\cost_manager\Code\costsManagerDB1 with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@5a07e868 
+----------------------------------------------------------------
+Thu Feb 04 12:14:45 IST 2021:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a02ac013-0177-6c89-7283-000007207dd8 
+on database directory C:\Users\elira\Google Drive\מדעי המחשב -תואר (אלירן)\שנה ג\סמסטר א\05 - תכנות בסביבת אינטרנט\finalProject_costManager\cost_manager\Code\costsManagerDB1 with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@5a07e868 
+Loaded from file:/C:/Users/elira/Google%20Drive/%d7%9e%d7%93%d7%a2%d7%99%20%d7%94%d7%9e%d7%97%d7%a9%d7%91%20-%d7%aa%d7%95%d7%90%d7%a8%20(%d7%90%d7%9c%d7%99%d7%a8%d7%9f)/%d7%a9%d7%a0%d7%94%20%d7%92/%d7%a1%d7%9e%d7%a1%d7%98%d7%a8%20%d7%90/05%20-%20%d7%aa%d7%9b%d7%a0%d7%95%d7%aa%20%d7%91%d7%a1%d7%91%d7%99%d7%91%d7%aa%20%d7%90%d7%99%d7%a0%d7%98%d7%a8%d7%a0%d7%98/finalProject_costManager/cost_manager/db-derby-10.15.2.0-bin/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=13.0.2+8
+user.dir=C:\Users\elira\Google Drive\מדעי המחשב -תואר (אלירן)\שנה ג\סמסטר א\05 - תכנות בסביבת אינטרנט\finalProject_costManager\cost_manager\Code
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''

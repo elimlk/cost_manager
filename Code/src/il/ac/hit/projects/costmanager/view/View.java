@@ -2,6 +2,7 @@ package il.ac.hit.projects.costmanager.view;
 
 import il.ac.hit.projects.costmanager.model.CostItem;
 import il.ac.hit.projects.costmanager.model.CostManagerException;
+import il.ac.hit.projects.costmanager.model.Report;
 import il.ac.hit.projects.costmanager.viewModel.IViewModel;
 import org.jfree.chart.ChartPanel;
 import org.jfree.data.general.DefaultPieDataset;
@@ -215,6 +216,11 @@ public class View implements IView {
             btnRefreshReport.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+
+                    String startDate = tfStartDate.getText();
+                    String endDate = tfEndDate.getText();
+                    Report report = vm.getReport(startDate,endDate);
+
 
                     dataset.setValue( "Food" , 1200 );
                     dataset.setValue( "Online shopping" , 150 );
