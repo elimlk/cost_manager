@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="javadoc">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/db-derby-10.15.2.0-bin/javadoc/module-search-index.zip!/" />
+      <root url="jar://$PROJECT_DIR$/db-derby-10.15.2.0-bin/javadoc/package-search-index.zip!/" />
+      <root url="jar://$PROJECT_DIR$/db-derby-10.15.2.0-bin/javadoc/type-search-index.zip!/" />
+      <root url="jar://$PROJECT_DIR$/db-derby-10.15.2.0-bin/javadoc/member-search-index.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Code/Code.iml" filepath="$PROJECT_DIR$/Code/Code.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/cost_manager.iml" filepath="$PROJECT_DIR$/.idea/cost_manager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/db-derby-10.15.2.0-bin/demo/demo.iml" filepath="$PROJECT_DIR$/db-derby-10.15.2.0-bin/demo/demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jfreechart-1.0.1/jfreechart-1.0.1.iml" filepath="$PROJECT_DIR$/jfreechart-1.0.1/jfreechart-1.0.1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/db-derby-10.15.2.0-bin/demo/programs/programs.iml" filepath="$PROJECT_DIR$/db-derby-10.15.2.0-bin/demo/programs/programs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/db-derby-10.15.2.0-bin/demo/programs/scores/scores.iml" filepath="$PROJECT_DIR$/db-derby-10.15.2.0-bin/demo/programs/scores/scores.iml" />
+      <module fileurl="file://$PROJECT_DIR$/db-derby-10.15.2.0-bin/demo/programs/vtis/vtis.iml" filepath="$PROJECT_DIR$/db-derby-10.15.2.0-bin/demo/programs/vtis/vtis.iml" />
+    </modules>
+  </component>
+</project>
