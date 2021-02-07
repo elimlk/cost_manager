@@ -6,6 +6,7 @@ import java.util.List;
 
 
 
+//Report object represents a list of cost items between two dates to make calculations easier on them (cost sum for each category)
 public class Report {
     private List<CostItem> listOfItems;
     private List<String> listOfCategories;
@@ -22,11 +23,12 @@ public class Report {
     public HashMap<String,Double> calcReport() {
 
         HashMap<String, Double> categoriesSum = new HashMap<String, Double>();
+        //initialize report with all categories
         for (String category :listOfCategories)
         {
             categoriesSum.put(category,0.0);
         }
-
+        // summery of items on each category
         for(CostItem item : listOfItems){
             Double old = categoriesSum.get(item.getCategory());
             Double newSum = convertCurenncy(item);
@@ -37,6 +39,7 @@ public class Report {
     }
 
     private Double convertCurenncy(CostItem item) {
+        // convert sum with currency rate to ILS
         String currency = item.getCurrency();
         Double convertedSum = 0.0;
         switch (currency){

@@ -4,27 +4,20 @@ import il.ac.hit.projects.costmanager.model.CostItem;
 import il.ac.hit.projects.costmanager.model.CostManagerException;
 import il.ac.hit.projects.costmanager.model.Report;
 import il.ac.hit.projects.costmanager.viewModel.IViewModel;
-import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.data.general.DefaultPieDataset;
-import org.jfree.ui.RefineryUtilities;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
 public class View implements IView {
 
-
-
     private ApplicationUI appUI;
     private IViewModel vm;
-
-
 
     public View() {
         SwingUtilities.invokeLater(new Runnable() {
@@ -47,10 +40,7 @@ public class View implements IView {
         JOptionPane.showMessageDialog(null,msg);
     }
 
-    @Override
-    public void showItems(CostItem[] item) {
-    }
-
+    //Returning all categories as a single text
     public String getCategoriesKeys(){
 
         List<String> categories = vm.getCategoriesKeys();
@@ -178,11 +168,7 @@ public class View implements IView {
 
             taCategoriesList.setText(getCategoriesKeys());
 
-
-
-            PieChart pieChart = new PieChart("Cost Summary");
-            panelPieChart = new ChartPanel( ChartFactory.createPieChart("Cost Summary", dataset,true,true,false)); // data    );
-
+            panelPieChart = new ChartPanel( PieChart.createChart(dataset));
             updatePieChart("0001-01-01", "3000-01-01");
 
 
@@ -206,10 +192,9 @@ public class View implements IView {
                                 tfNewCostCategory.getText(),
                                 tfNewCostCurrency.getText(),
                                 tfNewCostDate.getText()));
-                        // not working problem with "isValidDate"
                         showMessage("Cost add successfully");
                     } catch (CostManagerException ex) {
-                        showMessage(ex.getMessage());
+                        showMessage(ex.getMessage()); //If invalid cost field
                     }
                 }
             });
@@ -224,7 +209,7 @@ public class View implements IView {
 
 
                     } catch (CostManagerException exception) {
-                        showMessage(exception.getMessage());
+                        showMessage(exception.getMessage());//if invalid category name
                     }
                 }
             });
@@ -232,7 +217,6 @@ public class View implements IView {
             btnRefreshReport.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    HashMap<String, Double> categoriesSum = new HashMap<String, Double>();
                     String startDate = tfStartDate.getText();
                     String endDate = tfEndDate.getText();
 
@@ -242,6 +226,7 @@ public class View implements IView {
             });
         }
 
+        //Updating the pie chart according to given dates
         private void updatePieChart(String sDate, String eDate){
 
             HashMap<String, Double> categoriesSum = new HashMap<String, Double>();
@@ -251,12 +236,11 @@ public class View implements IView {
                 categoriesSum = report.calcReport();
 
                 for (String index : categoriesSum.keySet()) {
-                    System.out.println("key: " + index + " value: " + categoriesSum.get(index));
                     dataset.setValue(index,categoriesSum.get(index));
                 }
 
             } catch (CostManagerException ex) {
-                showMessage(ex.getMessage());
+                showMessage(ex.getMessage()); //If invalid dates
             }
         }
     }

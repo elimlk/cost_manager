@@ -2,9 +2,7 @@ package il.ac.hit.projects.costmanager.test;
 import il.ac.hit.projects.costmanager.model.CostItem;
 import il.ac.hit.projects.costmanager.model.CostManagerException;
 import il.ac.hit.projects.costmanager.model.DerbyDBModel;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,9 +20,6 @@ class CostItemTest {
                 "2020-02-12");
     }
 
-    @AfterEach
-    void tearDown() {
-    }
 
     @Test
     void CostItemConstructorTest() {

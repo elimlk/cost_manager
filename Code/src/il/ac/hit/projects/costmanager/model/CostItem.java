@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class CostItem {
-
+    //cost item class represents cost expense in data base
     private double sum;
     private String details;
     private String category;
@@ -20,17 +20,11 @@ public class CostItem {
         setItemDate(date);
     }
 
-    public static boolean isDateValid(String text) {
-        if (text == null || !text.matches("^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])$"))
+    public static boolean isDateValid(String date) {
+
+        if (date == null || !date.matches("^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])$")) //Check if date is yyyy-MM-dd
             return false;
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        df.setLenient(false);
-        try {
-            df.parse(text);
-            return true;
-        } catch (ParseException ex) {
-            return false;
-        }
+        return true;
     }
 
     private void setItemDate(String date) throws CostManagerException {
@@ -42,6 +36,7 @@ public class CostItem {
     }
 
     public void setSum(String sum) throws CostManagerException {
+
         try {
             Double parseSum = Double.parseDouble(sum);
             if (parseSum > 0) {
@@ -61,7 +56,7 @@ public class CostItem {
     public void setCategory(String category) throws CostManagerException {
         DerbyDBModel dbModel = new DerbyDBModel();
         List categories = dbModel.getCategories();
-        String output = category.substring(0, 1).toUpperCase() + category.substring(1).toLowerCase();
+        String output = category.substring(0, 1).toUpperCase() + category.substring(1).toLowerCase(); // handle with typo and unified pattern capital letter on start and small after
         if (categories.contains(output))
             this.category = output;
         else
@@ -70,7 +65,7 @@ public class CostItem {
 
     public void setCurrency(String currency) throws CostManagerException {
         String upperCurrency = currency.toUpperCase();
-        for (Currency c : Currency.values()) {
+        for (Currency c : Currency.values()) {  //check is currency exist in ENUM Currency.
             if (c.name().equals(upperCurrency)) {
                 this.currency = upperCurrency;
                 return;

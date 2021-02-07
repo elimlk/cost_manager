@@ -14,22 +14,12 @@ public class PieChart extends ApplicationFrame {
 
     public PieChart( String title ) {
         super( title );
-        setContentPane(createDemoPanel( ));
     }
 
-
-    private static PieDataset createDataset( ) {
-        DefaultPieDataset dataset = new DefaultPieDataset( );
-        dataset.setValue( "IPhone 5s" , 20.0 );
-        dataset.setValue( "SamSung Grand" , 20.0 );
-        dataset.setValue( "MotoGP" , 40.0 );
-        dataset.setValue( "Nokia Lumia" , 10.0 );
-        return dataset;
-    }
-
+    //create pie chart with specific dataset of costs items and return jchart
     public static JFreeChart createChart( PieDataset dataset ) {
         JFreeChart chart = ChartFactory.createPieChart(
-                "Mobile Sales",   // chart title
+                "Cost Summery",   // chart title
                 dataset,          // data
                 true,             // include legend
                 true,
@@ -38,15 +28,4 @@ public class PieChart extends ApplicationFrame {
         return chart;
     }
 
-    public static JPanel createDemoPanel( ) {
-        JFreeChart chart = createChart(createDataset( ) );
-        return new ChartPanel( chart );
-    }
-
-//    public static void main( String[ ] args ) {
-//        PieChart_AWT demo = new PieChart_AWT( "Mobile Sales" );
-//        demo.setSize( 560 , 367 );
-//        RefineryUtilities.centerFrameOnScreen( demo );
-//        demo.setVisible( true );
-//    }
 }

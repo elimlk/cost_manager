@@ -6,7 +6,6 @@ import il.ac.hit.projects.costmanager.model.IModel;
 import il.ac.hit.projects.costmanager.model.Report;
 import il.ac.hit.projects.costmanager.view.IView;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public interface IViewModel {
